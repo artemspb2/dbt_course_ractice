@@ -1,0 +1,54 @@
+sources:
+  - name: demo_src
+    tables:
+      - name: aircrafts
+        description: aircraft models
+        columns:
+          - name: aircraft_code
+            description: aircraft_model_code
+          - name: model
+            description: aircraft_model_name
+          - name: range
+            description: unknown
+      - name: airports
+        description: airports
+        columns:
+        - name: airport_code
+          description: airport_code
+        - name: airport_name
+          description: airport_name
+        - name: city
+          description: city
+        - name: coordinates
+          description: coordinates
+        - name: timezone
+          description: timezone
+
+
+      - name: seats
+        description: seats in the aircraft model
+        columns:
+        - name: aircraft_code
+          description: aircraft_code
+        - name: seat_no
+          description: seat_no
+        - name: fare_conditions
+          description: fare_conditions
+
+      - name: bookings
+        columns:
+        - name: book_ref
+        - name: book_date
+        - name: total_amount
+        freshness:
+          warn_after:
+            count: 600000
+            period: hour
+          error_after:
+            count: 10000
+            period: day
+          filter: current_timestamp::date - book_date::date < 30000
+        loaded_at_field: book_date::timestamp    
+
+
+
