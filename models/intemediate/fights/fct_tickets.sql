@@ -6,8 +6,9 @@
 
 select 
         ticket_no,
-        flight_id,
-        fare_conditions,
-        amount 
+        book_ref,
+        passenger_id,
+        passenger_name,
+        contact_data
 from 
     {{ ref('stg_flights__tickets') }}
